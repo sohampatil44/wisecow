@@ -70,4 +70,4 @@ jobs:
         kubectl get svc -n wisecow
         echo "Ingress in wisecow namespace:"
         kubectl get ingress -n wisecow
-3
+
