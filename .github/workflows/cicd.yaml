@@ -46,8 +46,13 @@ jobs:
       with:
         version: v1.30.0
 
+    - name: Create Namespace
+      run: kubectl create namespace wisecow || true
+
+    
+
     - name: Apply Kubernetes manifests
-      run: kubectl apply -f k8s/manifests/
+      run: kubectl apply -f k8s/manifests/ -n wisecow
 
     - name: Verify Deployment
       run: kubectl wait --for=condition=ready pod --all --timeout=120s
