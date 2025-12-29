@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     
 permissions:
-    content: true    
+    content: write
 
 jobs:
     build:
@@ -36,4 +36,15 @@ jobs:
             -t soham444/wisecow:latest \
             --push \
             .  
+
+        - name: Deploy Kubernetes manifests
+          run: |
+            kubectl apply -f k8s/manifests/namespace.yaml
+            kubectl apply -f k8s/manifests/deployment.yaml
+            kubectl apply -f k8s/manifests/service.yaml
+            kubectl apply -f k8s/manifests/tls-secret.yaml
+            kubectl apply -f k8s/manifests/ingress.yaml
+            kubectl apply -f kubearmor/wisecow-zero-trust.yaml
+    
+            
 
