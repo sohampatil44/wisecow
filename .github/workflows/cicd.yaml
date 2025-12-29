@@ -55,7 +55,7 @@ jobs:
       run: kubectl apply -f k8s/manifests/ -n wisecow
 
     - name: Verify Deployment
-      run: kubectl wait --for=condition=ready pod --all --timeout=120s
+      run: kubectl wait --for=condition=ready pod --all --namespace=wisecow --timeout=120s
 
 
     - name: Test Wisecow service inside cluster
