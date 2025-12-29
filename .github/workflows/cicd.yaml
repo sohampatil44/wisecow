@@ -55,5 +55,19 @@ jobs:
 
     - name: Test Wisecow service inside cluster
       run: |
-        kubectl run curlpod --rm -i --tty --image=curlimages/curl --restart=Never -- \
-        curl --insecure https://wisecow:443
+        kubectl run curlpod \
+            --rm \
+            --namespace=wisecow \
+            --image=curlimages/curl \
+            --restart=Never \
+            --command -- curl --insecure https://wisecow:443
+
+    - name: Get Wisecow pods and service info
+      run: |
+        echo "Pods in wisecow namespace:"
+        kubectl get pods -n wisecow
+        echo "Services in wisecow namespace:"
+        kubectl get svc -n wisecow
+        echo "Ingress in wisecow namespace:"
+        kubectl get ingress -n wisecow
+3
