@@ -56,11 +56,11 @@ jobs:
     - name: Test Wisecow service inside cluster
       run: |
         kubectl run curlpod \
-            --rm \
-            --namespace=wisecow \
-            --image=curlimages/curl \
-            --restart=Never \
-            --command -- curl --insecure https://wisecow:443
+          --namespace=wisecow \
+          --image=curlimages/curl \
+          --restart=Never \
+          --command -- curl --insecure https://wisecow:443
+    
 
     - name: Get Wisecow pods and service info
       run: |
