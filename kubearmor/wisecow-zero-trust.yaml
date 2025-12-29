@@ -1,0 +1,13 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: block-wisecow-sh
+  namespace: wisecow
+spec:
+  selector:
+    matchLabels:
+      app: wisecow
+  action: Block
+  process:
+    matchPaths:
+    - path: /app/wisecow.sh
