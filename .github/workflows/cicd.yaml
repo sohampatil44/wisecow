@@ -35,8 +35,6 @@ jobs:
 
     - name: Create Kind cluster
       run: kind create cluster --name kind --config kind-config.yaml
-         
-      
 
     - name: Load Docker image into Kind
       run: kind load docker-image soham444/wisecow:latest --name kind
@@ -49,17 +47,13 @@ jobs:
     - name: Create Namespace
       run: kubectl create namespace wisecow || true
 
-    
-
     - name: Apply Kubernetes manifests
       run: kubectl apply -f k8s/manifests/ -n wisecow
 
-    - name: Verify Deployment
-      run: kubectl wait --for=condition=ready pod --all --namespace=wisecow --timeout=120s
-
+    - name: Wait for Deployment to be ready
+      run: kubectl wait --for=condition=available deployment/wisecow --namespace=wisecow --timeout=180s
 
     - name: Test Wisecow service inside cluster
       run: |
         kubectl run curlpod --rm -i --tty --image=curlimages/curl --restart=Never -- \
         curl --insecure https://wisecow:443
-            
